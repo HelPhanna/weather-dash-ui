@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@theme {
+  --color-dashboard-background: #0b1426;
+  --color-dashboard-card: #1e293b;
+  --color-dashboard-accent: #38bdf8;
+  --color-dashboard-text: #f8fafc;
+  --shadow-glass: 0 24px 80px rgba(3, 7, 18, 0.45);
+}
+
 :root {
   color-scheme: dark;
 }
@@ -50,6 +58,13 @@ body {
   box-shadow:
     0 0 0 1px rgba(56, 189, 248, 0.16),
     0 0 30px rgba(56, 189, 248, 0.08);
+}
+
+.bg-weather-radial {
+  background-image:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.14), transparent 32%),
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.05), transparent 55%);
 }
 
 .scrollbar-hide {
