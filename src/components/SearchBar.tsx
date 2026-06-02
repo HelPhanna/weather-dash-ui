@@ -1,6 +1,6 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import { FiSearch, FiMapPin, FiLoader } from 'react-icons/fi';
-import type { WeatherLocation } from '../types/weather';
+import { AnimatePresence, motion } from "framer-motion";
+import { FiSearch, FiMapPin, FiLoader } from "react-icons/fi";
+import type { WeatherLocation } from "../types/weather";
 
 export default function SearchBar({
   value,
@@ -20,9 +20,12 @@ export default function SearchBar({
   onSelectSuggestion: (location: WeatherLocation) => void;
 }) {
   return (
-    <div className="relative w-full">
+    <div className="relative w-full max-w-full sm:max-w-xl">
       <motion.div
-        whileHover={{ boxShadow: '0 0 0 1px rgba(56,189,248,0.2), 0 0 30px rgba(56,189,248,0.08)' }}
+        whileHover={{
+          boxShadow:
+            "0 0 0 1px rgba(56,189,248,0.2), 0 0 30px rgba(56,189,248,0.08)",
+        }}
         className="glass-card glass-glow relative flex items-center gap-3 px-4 py-3.5 sm:py-3"
       >
         <FiSearch className="text-slate-300" />
@@ -36,7 +39,9 @@ export default function SearchBar({
         {isLoading ? (
           <FiLoader className="animate-spin text-sky-400" />
         ) : (
-          <span className="text-xs uppercase tracking-[0.2em] text-slate-400">Live</span>
+          <span className="text-xs uppercase tracking-[0.2em] text-slate-400">
+            Live
+          </span>
         )}
       </motion.div>
 
@@ -58,7 +63,7 @@ export default function SearchBar({
                   <motion.button
                     key={`${location.latitude}-${location.longitude}`}
                     type="button"
-                    whileHover={{ backgroundColor: 'rgba(255,255,255,0.06)' }}
+                    whileHover={{ backgroundColor: "rgba(255,255,255,0.06)" }}
                     whileTap={{ scale: 0.99 }}
                     onClick={() => onSelectSuggestion(location)}
                     className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition"
@@ -71,14 +76,17 @@ export default function SearchBar({
                         {location.name}
                       </span>
                       <span className="block truncate text-xs text-slate-400">
-                        {[location.region, location.country].filter(Boolean).join(', ') ||
-                          'Any location'}
+                        {[location.region, location.country]
+                          .filter(Boolean)
+                          .join(", ") || "Any location"}
                       </span>
                     </span>
                   </motion.button>
                 ))
               ) : (
-                <div className="px-4 py-6 text-sm text-slate-400">No matching cities found.</div>
+                <div className="px-4 py-6 text-sm text-slate-400">
+                  No matching cities found.
+                </div>
               )}
             </div>
           </motion.div>

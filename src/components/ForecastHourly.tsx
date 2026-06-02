@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import WeatherIcon from './WeatherIcon';
 import { formatForecastHour, formatTemperatureCompact } from '../utils/date';
@@ -8,6 +10,48 @@ export default function ForecastHourly({
 }: {
   items: HourlyForecastItem[];
 }) {
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const updateScrollState = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    setCanScrollLeft(scrollLeft > 0);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
+  };
+
+  useEffect(() => {
+    updateScrollState();
+  }, [items]);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    updateScrollState();
+    el.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+
+    return () => {
+      el.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, []);
+
+  const scrollByAmount = (direction: "left" | "right") => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const amount = Math.max(el.clientWidth * 0.8, 280);
+    el.scrollBy({
+      left: direction === "left" ? -amount : amount,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <motion.section
       initial={{ opacity: 0, y: 18 }}
@@ -15,16 +59,40 @@ export default function ForecastHourly({
       transition={{ duration: 0.45, delay: 0.05 }}
       className="glass-card p-4 sm:p-5 md:p-6"
     >
-      <div className="mb-4 flex items-center justify-between sm:mb-5">
+      <div className="mb-4 flex items-center justify-between gap-3 sm:mb-5">
         <div>
           <p className="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 sm:text-xs">
             Today&apos;s forecast
           </p>
           <h2 className="mt-2 text-base font-semibold text-slate-50 sm:text-lg">Hourly forecast</h2>
         </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => scrollByAmount("left")}
+            disabled={!canScrollLeft}
+            aria-label="Scroll hourly forecast left"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-100 transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            <FiChevronLeft />
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollByAmount("right")}
+            disabled={!canScrollRight}
+            aria-label="Scroll hourly forecast right"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-100 transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            <FiChevronRight />
+          </button>
+        </div>
       </div>
 
-      <div className="scrollbar-hide flex snap-x snap-mandatory gap-2.5 overflow-x-auto pb-1 sm:gap-3">
+      <div
+        ref={scrollRef}
+        className="scrollbar-hide flex snap-x snap-mandatory gap-2.5 overflow-x-auto pb-1 sm:gap-3"
+      >
         {items.map((item, index) => (
           <motion.article
             key={`${item.time}-${index}`}

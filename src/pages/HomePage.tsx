@@ -1,12 +1,12 @@
-import { motion } from 'framer-motion';
-import SearchBar from '../components/SearchBar';
-import CurrentWeather from '../components/CurrentWeather';
-import ForecastHourly from '../components/ForecastHourly';
-import ForecastWeekly from '../components/ForecastWeekly';
-import AirConditions from '../components/AirConditions';
-import { DashboardSkeleton } from '../components/LoadingSkeleton';
-import { useWeatherDashboard } from '../hooks/useWeatherDashboard';
-import { FiSun, FiMoon } from 'react-icons/fi';
+import { motion } from "framer-motion";
+import SearchBar from "../components/SearchBar";
+import CurrentWeather from "../components/CurrentWeather";
+import ForecastHourly from "../components/ForecastHourly";
+import ForecastWeekly from "../components/ForecastWeekly";
+import AirConditions from "../components/AirConditions";
+import { DashboardSkeleton } from "../components/LoadingSkeleton";
+import { useWeatherDashboard } from "../hooks/useWeatherDashboard";
+import { FiSun, FiMoon } from "react-icons/fi";
 
 export default function HomePage() {
   const {
@@ -32,34 +32,37 @@ export default function HomePage() {
 
   return (
     <div className="space-y-5">
-      <header className="flex flex-col gap-3 sm:gap-4 lg:flex-row lg:items-end lg:justify-between">
+      <header className="flex w-full items-start justify-between gap-3 sm:gap-4 lg:items-end">
         <div className="space-y-2">
-          <p className="text-[0.65rem] uppercase tracking-[0.3em] text-slate-400 sm:text-xs">
-            Weather dashboard
-          </p>
           <h1 className="max-w-lg text-2xl font-semibold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl">
-            Live conditions with a glassmorphism finish
+            Weather dashboard
           </h1>
         </div>
 
-        <div className="grid w-full max-w-full grid-cols-2 gap-1 self-start rounded-2xl border border-white/8 bg-white/5 p-1.5 backdrop-blur-md sm:flex sm:w-auto sm:max-w-none sm:items-center sm:gap-2 sm:rounded-full">
+        <div
+          className="flex w-fit shrink-0 items-center gap-1 rounded-2xl border border-white/8 bg-white/5 p-1 backdrop-blur-md sm:gap-2 sm:rounded-full"
+        >
           <button
             type="button"
-            onClick={() => setUnit('c')}
-            className={`inline-flex items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition sm:rounded-full sm:px-4 sm:py-2 ${
-              unit === 'c' ? 'bg-sky-500 text-slate-950' : 'text-slate-300 hover:text-white'
+            onClick={() => setUnit("c")}
+            className={`inline-flex items-center justify-center gap-2 rounded-xl px-1 py-0.5 text-sm font-medium transition sm:rounded-full sm:px-2 sm:py-1 ${
+              unit === "c"
+                ? "bg-sky-500 text-slate-950"
+                : "text-slate-300 hover:text-white"
             }`}
           >
-            <FiSun /> {'\u00B0'}C
+            <FiSun /> {"\u00B0"}C
           </button>
           <button
             type="button"
-            onClick={() => setUnit('f')}
-            className={`inline-flex items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition sm:rounded-full sm:px-4 sm:py-2 ${
-              unit === 'f' ? 'bg-sky-500 text-slate-950' : 'text-slate-300 hover:text-white'
+            onClick={() => setUnit("f")}
+            className={`inline-flex items-center justify-center gap-2 rounded-xl px-1 py-0.5 text-sm font-medium transition sm:rounded-full sm:px-2 sm:py-1 ${
+              unit === "f"
+                ? "bg-sky-500 text-slate-950"
+                : "text-slate-300 hover:text-white"
             }`}
           >
-            <FiMoon /> {'\u00B0'}F
+            <FiMoon /> {"\u00B0"}F
           </button>
         </div>
       </header>
@@ -89,7 +92,8 @@ export default function HomePage() {
           animate={{ opacity: 1, y: 0 }}
           className="glass-card p-6 text-slate-200"
         >
-          We couldn&apos;t load weather data for this city. Try a different search term.
+          We couldn&apos;t load weather data for this city. Try a different
+          search term.
         </motion.div>
       ) : null}
 
