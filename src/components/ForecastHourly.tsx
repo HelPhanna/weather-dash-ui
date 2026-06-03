@@ -59,7 +59,7 @@ export default function ForecastHourly({
       transition={{ duration: 0.45, delay: 0.05 }}
       className="glass-card p-4 sm:p-5 md:p-6"
     >
-      <div className="mb-5 flex items-center justify-between gap-3 sm:mb-6">
+      <div className="mb-5 flex flex-col gap-1 sm:mb-6">
         <p className="text-[10px] uppercase tracking-[0.25em] text-slate-400 sm:text-xs">
           Today&apos;s forecast
         </p>
