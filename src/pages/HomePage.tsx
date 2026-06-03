@@ -7,6 +7,7 @@ import AirConditions from "../components/AirConditions";
 import { DashboardSkeleton } from "../components/LoadingSkeleton";
 import { useWeatherDashboard } from "../hooks/useWeatherDashboard";
 import { FiSun, FiMoon } from "react-icons/fi";
+import Logo from "../assets/pp-weather-logo.png";
 
 export default function HomePage() {
   const {
@@ -32,16 +33,12 @@ export default function HomePage() {
 
   return (
     <div className="space-y-5">
-      <header className="flex w-full items-start justify-between gap-3 sm:gap-4 lg:items-end">
+      <header className="flex w-full items-start justify-between gap-3 sm:gap-4 lg:items-end mb-8">
         <div className="space-y-2">
-          <h1 className="max-w-lg text-2xl font-semibold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl">
-            Weather dashboard
-          </h1>
+          <img src={Logo} alt="logo" className="w-35 sm:w-40" />
         </div>
 
-        <div
-          className="flex w-fit shrink-0 items-center gap-1 rounded-2xl border border-white/8 bg-white/5 p-1 backdrop-blur-md sm:gap-2 sm:rounded-full"
-        >
+        <div className="flex w-fit shrink-0 items-center gap-1 rounded-2xl border border-white/8 bg-white/5 p-1 backdrop-blur-md sm:gap-2 sm:rounded-full">
           <button
             type="button"
             onClick={() => setUnit("c")}
@@ -98,7 +95,10 @@ export default function HomePage() {
       ) : null}
 
       {dashboardData ? (
-        <div className="grid gap-4 md:grid-cols-[minmax(0,65fr)_minmax(300px,35fr)] md:gap-5 lg:grid-cols-[minmax(0,70fr)_minmax(300px,30fr)]">
+        <div
+          className="grid gap-4 grid-cols-1 md:grid-cols-[minmax(0,65fr)_minmax(0,35fr)] md:gap-5 lg:grid-cols-[minmax(0,70fr)_minmax(0,30fr)] 
+        w-full max-w-full overflow-hidden"
+        >
           <div className="space-y-5">
             <CurrentWeather data={dashboardData} />
             <ForecastHourly items={dashboardData.hourly} />

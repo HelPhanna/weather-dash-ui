@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import { motion } from 'framer-motion';
-import WeatherIcon from './WeatherIcon';
-import { formatForecastHour, formatTemperatureCompact } from '../utils/date';
-import type { HourlyForecastItem } from '../types/weather';
+import { useEffect, useRef, useState } from "react";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { motion } from "framer-motion";
+import WeatherIcon from "./WeatherIcon";
+import { formatForecastHour, formatTemperatureCompact } from "../utils/date";
+import type { HourlyForecastItem } from "../types/weather";
 
 export default function ForecastHourly({
   items,
@@ -59,34 +59,13 @@ export default function ForecastHourly({
       transition={{ duration: 0.45, delay: 0.05 }}
       className="glass-card p-4 sm:p-5 md:p-6"
     >
-      <div className="mb-4 flex items-center justify-between gap-3 sm:mb-5">
-        <div>
-          <p className="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 sm:text-xs">
-            Today&apos;s forecast
-          </p>
-          <h2 className="mt-2 text-base font-semibold text-slate-50 sm:text-lg">Hourly forecast</h2>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => scrollByAmount("left")}
-            disabled={!canScrollLeft}
-            aria-label="Scroll hourly forecast left"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-100 transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            <FiChevronLeft />
-          </button>
-          <button
-            type="button"
-            onClick={() => scrollByAmount("right")}
-            disabled={!canScrollRight}
-            aria-label="Scroll hourly forecast right"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-100 transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            <FiChevronRight />
-          </button>
-        </div>
+      <div className="mb-5 flex items-center justify-between gap-3 sm:mb-6">
+        <p className="text-[10px] uppercase tracking-[0.25em] text-slate-400 sm:text-xs">
+          Today&apos;s forecast
+        </p>
+        <h2 className="mt-2 text-base font-semibold text-slate-50 sm:text-lg">
+          Hourly forecast
+        </h2>
       </div>
 
       <div
@@ -97,9 +76,11 @@ export default function ForecastHourly({
           <motion.article
             key={`${item.time}-${index}`}
             whileHover={{ y: -4, scale: 1.01 }}
-            className="min-w-[90px] snap-start rounded-3xl border border-white/8 bg-white/4 px-2.5 py-3.5 text-center backdrop-blur-sm sm:min-w-[108px] sm:px-4 sm:py-4"
+            className="min-w-[90px] snap-start rounded-3xl border border-white/8 bg-white/4 px-2 py-3 text-center backdrop-blur-sm sm:min-w-[108px] sm:px-4 sm:py-4"
           >
-            <p className="text-xs font-medium text-slate-300">{formatForecastHour(item.time)}</p>
+            <p className="text-xs font-medium text-slate-300">
+              {formatForecastHour(item.time)}
+            </p>
             <div className="my-3.5 flex justify-center text-amber-300 sm:my-4">
               <WeatherIcon
                 code={item.code}
@@ -114,6 +95,30 @@ export default function ForecastHourly({
             </p>
           </motion.article>
         ))}
+      </div>
+
+      {/* Scroll buttons */}
+      <div className="flex items-center justify-end gap-2 mt-3 sm:mt-5">
+        <button
+          type="button"
+          onClick={() => scrollByAmount("left")}
+          disabled={!canScrollLeft}
+          aria-label="Scroll hourly forecast left"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-100 transition
+             hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40 sm:h-10 sm:w-10"
+        >
+          <FiChevronLeft />
+        </button>
+        <button
+          type="button"
+          onClick={() => scrollByAmount("right")}
+          disabled={!canScrollRight}
+          aria-label="Scroll hourly forecast right"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-100 transition
+             hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40 sm:h-10 sm:w-10"
+        >
+          <FiChevronRight />
+        </button>
       </div>
     </motion.section>
   );

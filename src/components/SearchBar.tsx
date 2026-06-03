@@ -26,7 +26,7 @@ export default function SearchBar({
           boxShadow:
             "0 0 0 1px rgba(56,189,248,0.2), 0 0 30px rgba(56,189,248,0.08)",
         }}
-        className="glass-card glass-glow relative flex items-center gap-3 px-4 py-3.5 sm:py-3"
+        className="glass-card glass-glow relative flex items-center gap-3 px-4 py-1.5 sm:py-2"
       >
         <FiSearch className="text-slate-300" />
         <input
@@ -34,12 +34,12 @@ export default function SearchBar({
           onChange={(event) => onChange(event.target.value)}
           onFocus={onFocus}
           placeholder="Search for cities"
-          className="min-w-0 w-full bg-transparent text-base text-slate-100 placeholder:text-slate-400 outline-none sm:text-sm"
+          className="min-w-0 w-full bg-transparent text-sm text-slate-100 placeholder:text-slate-400 outline-none sm:text-base"
         />
         {isLoading ? (
           <FiLoader className="animate-spin text-sky-400" />
         ) : (
-          <span className="text-xs uppercase tracking-[0.2em] text-slate-400">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-slate-400 sm:text-xs">
             Live
           </span>
         )}

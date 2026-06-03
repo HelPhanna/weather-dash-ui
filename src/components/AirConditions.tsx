@@ -1,9 +1,19 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
-import { FiChevronRight, FiWind, FiSun, FiDroplet, FiThermometer } from 'react-icons/fi';
-import type { ReactNode } from 'react';
-import { formatPercentage, formatTemperatureCompact, formatWind } from '../utils/date';
-import type { WeatherDashboardData, Unit } from '../types/weather';
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
+import {
+  FiChevronRight,
+  FiWind,
+  FiSun,
+  FiDroplet,
+  FiThermometer,
+} from "react-icons/fi";
+import type { ReactNode } from "react";
+import {
+  formatPercentage,
+  formatTemperatureCompact,
+  formatWind,
+} from "../utils/date";
+import type { WeatherDashboardData, Unit } from "../types/weather";
 
 function Metric({
   icon,
@@ -50,23 +60,13 @@ export default function AirConditions({
     >
       <div className="mb-4 flex flex-col gap-3 sm:mb-5 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div>
-          <p className="text-[0.7rem] uppercase tracking-[0.25em] text-slate-400 sm:text-xs">
+          <p className="text-[10px] uppercase tracking-[0.25em] text-slate-400 sm:text-xs">
             Air conditions
           </p>
           <h2 className="mt-2 text-base font-semibold text-slate-50 sm:text-lg">
             Current atmosphere
           </h2>
         </div>
-        <motion.button
-          type="button"
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => setIsExpanded((value) => !value)}
-          className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-sky-500 px-3 py-2 text-xs font-medium text-slate-950 transition hover:bg-sky-400 sm:w-auto sm:px-4 sm:text-sm"
-        >
-          {isExpanded ? 'See less' : 'See more'}{' '}
-          <FiChevronRight className={`transition-transform ${isExpanded ? 'rotate-90' : ''}`} />
-        </motion.button>
       </div>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -78,21 +78,28 @@ export default function AirConditions({
         <Metric
           icon={<FiWind />}
           label="Wind"
-          value={formatWind(data.current.wind_speed_10m, unit === 'c' ? 'km/h' : 'mph')}
+          value={formatWind(
+            data.current.wind_speed_10m,
+            unit === "c" ? "km/h" : "mph",
+          )}
         />
         <Metric
           icon={<FiDroplet />}
           label="Chance of rain"
           value={formatPercentage(data.current.precipitation_probability)}
         />
-        <Metric icon={<FiSun />} label="UV index" value={`${Math.round(data.current.uv_index)}`} />
+        <Metric
+          icon={<FiSun />}
+          label="UV index"
+          value={`${Math.round(data.current.uv_index)}`}
+        />
       </div>
 
       <AnimatePresence initial={false}>
         {isExpanded ? (
           <motion.div
             initial={{ opacity: 0, height: 0, y: -8 }}
-            animate={{ opacity: 1, height: 'auto', y: 0 }}
+            animate={{ opacity: 1, height: "auto", y: 0 }}
             exit={{ opacity: 0, height: 0, y: -8 }}
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
@@ -103,21 +110,41 @@ export default function AirConditions({
                 label="Humidity"
                 value={
                   data.current.relative_humidity_2m === undefined
-                    ? 'N/A'
+                    ? "N/A"
                     : formatPercentage(data.current.relative_humidity_2m)
                 }
               />
-              <Metric icon={<FiWind />} label="Wind direction" value={windDirection ?? 'N/A'} />
+              <Metric
+                icon={<FiWind />}
+                label="Wind direction"
+                value={windDirection ?? "N/A"}
+              />
             </div>
             <p className="mt-4 text-xs uppercase tracking-[0.22em] text-slate-500">
-              Updated at {new Date(data.current.time).toLocaleTimeString([], {
-                hour: '2-digit',
-                minute: '2-digit',
+              Updated at{" "}
+              {new Date(data.current.time).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
               })}
             </p>
           </motion.div>
         ) : null}
       </AnimatePresence>
+
+      {/* Expand/Collapse Button */}
+      <motion.button
+        type="button"
+        whileHover={{ scale: 1.04 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={() => setIsExpanded((value) => !value)}
+        className="flex mt-5 sm:mt-6 w-auto items-center justify-self-end gap-2 rounded-full bg-sky-500 px-3 py-2 text-xs font-medium text-slate-950 transition
+           hover:bg-sky-400 sm:w-auto sm:px-4 sm:text-sm"
+      >
+        {isExpanded ? "See less" : "See more"}{" "}
+        <FiChevronRight
+          className={`transition-transform ${isExpanded ? "rotate-90" : ""}`}
+        />
+      </motion.button>
     </motion.section>
   );
 }
