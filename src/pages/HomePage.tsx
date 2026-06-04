@@ -8,6 +8,7 @@ import { DashboardSkeleton } from "../components/LoadingSkeleton";
 import { useWeatherDashboard } from "../hooks/useWeatherDashboard";
 import { FiSun, FiMoon } from "react-icons/fi";
 import Logo from "../assets/pp-weather-logo.png";
+import Footer from "../components/Footer";
 
 export default function HomePage() {
   const {
@@ -28,11 +29,16 @@ export default function HomePage() {
   const isLoading = isSearching || isWeatherLoading;
 
   if (isLoading && !dashboardData) {
-    return <DashboardSkeleton />;
+    return (
+      <div className="flex min-h-full flex-1 flex-col space-y-5">
+        <DashboardSkeleton />
+        <Footer />
+      </div>
+    );
   }
 
   return (
-    <div className="space-y-5">
+    <div className="flex min-h-full flex-1 flex-col space-y-5">
       <header className="flex w-full items-start justify-between gap-3 sm:gap-4 lg:items-end mb-8">
         <div className="space-y-2">
           <img src={Logo} alt="logo" className="w-35 sm:w-40" />
@@ -107,6 +113,8 @@ export default function HomePage() {
           <ForecastWeekly items={dashboardData.daily} />
         </div>
       ) : null}
+
+      <Footer />
     </div>
   );
 }
