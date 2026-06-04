@@ -132,19 +132,20 @@ export default function AirConditions({
       </AnimatePresence>
 
       {/* Expand/Collapse Button */}
-      <motion.button
-        type="button"
-        whileHover={{ scale: 1.04 }}
-        whileTap={{ scale: 0.98 }}
-        onClick={() => setIsExpanded((value) => !value)}
-        className="flex mt-5 sm:mt-6 w-auto items-center justify-self-end gap-2 rounded-full bg-sky-500 px-3 py-2 text-xs font-medium text-slate-950 transition
-           hover:bg-sky-400 sm:w-auto sm:px-4 sm:text-sm"
-      >
-        {isExpanded ? "See less" : "See more"}{" "}
-        <FiChevronRight
-          className={`transition-transform ${isExpanded ? "rotate-90" : ""}`}
-        />
-      </motion.button>
+      <div className="flex justify-end mt-5 sm:mt-6">
+        <motion.button
+          type="button"
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => setIsExpanded((value) => !value)}
+          className="flex items-center gap-2 rounded-full bg-sky-500 px-3 py-2 text-xs font-medium text-slate-950 transition hover:bg-sky-400 sm:px-4 sm:text-sm"
+        >
+          {isExpanded ? "See less" : "See more"}{" "}
+          <FiChevronRight
+            className={`transition-transform ${isExpanded ? "rotate-90" : ""}`}
+          />
+        </motion.button>
+      </div>
     </motion.section>
   );
 }
